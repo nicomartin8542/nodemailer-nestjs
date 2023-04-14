@@ -4,6 +4,8 @@
 
 # App de envio de mail
 
+### Insatalacion
+
 1. Clonar repositorio
 2. Instalar dependencias:
 
@@ -19,7 +21,7 @@ npm install
 npm run start:dev
 ```
 
-# End-Points
+### End-Points
 
 - Send mail
 
@@ -38,7 +40,19 @@ Body:{
 Method: POST
 ```
 
-# Stack utilizado
+### Dependencias
+
+```
+npm install --save class-transformer class-validator nodemailer handlebars
+```
+
+### Dependencias de desarrollo
+
+```
+npm install -D @types/nodemailer
+```
+
+### Stack utilizado
 
 - NestJS
 - Nodemailer
