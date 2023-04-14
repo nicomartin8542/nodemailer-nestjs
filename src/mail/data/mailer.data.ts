@@ -1,22 +1,27 @@
+import { MailerOptions } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
-export const mailerData = {
-  transport: {
-    host: process.env.MAIL_HOST,
-    secure: false,
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD,
+export const mailerData = (configService: ConfigService): MailerOptions => {
+  return {
+    transport: {
+      host: configService.get('MAIL_HOST'),
+      secure: true,
+      port: configService.get('MAIL_PORT'),
+      auth: {
+        user: configService.get('MAIL_USER'),
+        pass: configService.get('MAIL_PASSWORD'),
+      },
     },
-  },
-  defaults: {
-    from: `"No Reply" <${process.env.MAIL_USER}>`,
-  },
-  template: {
-    dir: join(__dirname, '..', 'templates'),
-    adapter: new HandlebarsAdapter(),
-    options: {
-      strict: true,
+    defaults: {
+      from: `"No Reply" <${configService.get('MAIL_USER')}>`,
     },
-  },
+    template: {
+      dir: join(__dirname, '..', 'templates'),
+      adapter: new HandlebarsAdapter(),
+      options: {
+        strict: true,
+      },
+    },
+  };
 };

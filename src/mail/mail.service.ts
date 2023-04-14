@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Data } from './interfaces/data-mail.interface';
-import { join } from 'path';
+import { mailerData } from './data/mailer.data';
 
 @Injectable()
 export class MailService {
@@ -9,9 +9,6 @@ export class MailService {
 
   async sendMail(data: Data) {
     const { email, subject, userName, url } = data;
-
-    console.log(process.env.MAIL_USER);
-
     try {
       await this.mailerService.sendMail({
         to: email,
